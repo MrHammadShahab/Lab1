@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px; /* Adjust as needed */
+  margin: 20px auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+[class^="col-"] {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.col-12 {
+  width: 100%;
+  background-color: antiquewhite;
+}
+
+.col-md-6 {
+  width: 50%;
+  background-color: rgb(255, 212, 157);
+}
+
+.col-md-3 {
+  width: 25%;
+  background-color: rgb(204, 223, 130);
+}
+
+.col-md-8 {
+  width: 66.66%;
+  background-color: rgb(146, 149, 233);
+}
+
+.col-md-4 {
+  width: 33.33%;
+  background-color: rgb(116, 208, 205);
+}
+
+/* Add more classes for other column sizes as needed */

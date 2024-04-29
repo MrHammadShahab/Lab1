@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator</title>
+  <style>
+    /* Internal CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    h1{
+        text-align: center;
+    }
+    .navbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      color: black;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      z-index: 1;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    /* Other styles */
+    .calculator {
+      width: 350px;
+      margin: 50px auto;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .display {
+      width: 95%;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .button {
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #eee;
+    }
+    .button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<h1>Scientific Calculator</h1>
+<body>
+
+  <div class="calculator">
+
+    <div class="navbar">
+        <div class="dropdown">
+          <span>&#8942;</span>
+          <div class="dropdown-content">
+            <a href="scientific.html">Scientific Mode</a>
+            <a href="unit.html">Unit Converter</a>
+            <a href="currency.html">Currency Converter</a>
+          </div>
+        </div>
+      </div>
+
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="button" onclick="clearDisplay()">C</button>
+      <button class="button" onclick="backspace()">⌫</button>
+      <button class="button" onclick="appendToDisplay('(')">(</button>
+      <button class="button" onclick="appendToDisplay(')')">)</button>
+      <button class="button" onclick="appendToDisplay('^')">^</button>
+      <button class="button" onclick="appendToDisplay('7')">7</button>
+      <button class="button" onclick="appendToDisplay('8')">8</button>
+      <button class="button" onclick="appendToDisplay('9')">9</button>
+      <button class="button" onclick="setOperation('+')">+</button>
+      <button class="button" onclick="MathFunction('sqrt')">√</button>
+      <button class="button" onclick="appendToDisplay('4')">4</button>
+      <button class="button" onclick="appendToDisplay('5')">5</button>
+      <button class="button" onclick="appendToDisplay('6')">6</button>
+      <button class="button" onclick="setOperation('-')">-</button>
+      <button class="button" onclick="MathFunction('log')">log</button>
+      <button class="button" onclick="appendToDisplay('1')">1</button>
+      <button class="button" onclick="appendToDisplay('2')">2</button>
+      <button class="button" onclick="appendToDisplay('3')">3</button>
+      <button class="button" onclick="setOperation('*')">*</button>
+      <button class="button" onclick="MathFunction('sin')">sin</button>
+      <button class="button" onclick="appendToDisplay('0')">0</button>
+      <button class="button" onclick="appendToDisplay('.')">.</button>
+      <button class="button" onclick="calculate()">=</button>
+      <button class="button" onclick="setOperation('/')">/</button>
+      <button class="button" onclick="MathFunction('cos')">cos</button>
+      <button class="button" onclick="MathFunction('tan')">tan</button>
+    </div>
+  </div>
+
+  <script>
+    // Internal JavaScript code
+    let currentInput = '0';
+    let currentOperation = '';
+    let previousInput = '';
+
+    function appendToDisplay(value) {
+      if (currentInput === '0' && value !== '.') {
+        currentInput = '';
+      }
+      currentInput += value;
+      document.getElementById('display').innerText = currentInput;
+    }
+
+    function setOperation(operation) {
+      if (currentInput !== '') {
+        currentOperation = operation;
+        previousInput = currentInput;
+        currentInput = '';
+      }
+    }
+
+    function calculate() {
+      let result;
+      switch (currentOperation) {
+        case '+':
+          result = parseFloat(previousInput) + parseFloat(currentInput);
+          break;
+        case '-':
+          result = parseFloat(previousInput) - parseFloat(currentInput);
+          break;
+        case '*':
+          result = parseFloat(previousInput) * parseFloat(currentInput);
+          break;
+        case '/':
+          result = parseFloat(previousInput) / parseFloat(currentInput);
+          break;
+        case '^':
+          result = Math.pow(parseFloat(previousInput), parseFloat(currentInput));
+          break;
+      }
+      document.getElementById('display').innerText = result;
+      currentInput = result.toString();
+    }
+
+    function clearDisplay() {
+      currentInput = '0';
+      currentOperation = '';
+      previousInput = '';
+      document.getElementById('display').innerText = currentInput;
+    }
+
+    function backspace() {
+      currentInput = currentInput.slice(0, -1);
+      document.getElementById('display').innerText = currentInput;
+    }
+
+    function MathFunction(func) {
+      let value = parseFloat(currentInput);
+      switch (func) {
+        case 'sqrt':
+          result = Math.sqrt(value);
+          break;
+        case 'log':
+          result = Math.log10(value);
+          break;
+        case 'sin':
+          result = Math.sin(value);
+          break;
+        case 'cos':
+          result = Math.cos(value);
+          break;
+        case 'tan':
+          result = Math.tan(value);
+          break;
+      }
+      document.getElementById('display').innerText = result;
+      currentInput = result.toString();
+    }
+  </script>
+</body>
+</html>

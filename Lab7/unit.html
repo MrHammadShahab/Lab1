@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter</title>
+  <style>
+    /* Internal CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    h1{
+        text-align: center;
+    }
+    .navbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      color: black;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      z-index: 1;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    /* Other styles */
+    .converter {
+      width: 350px;
+      margin: 50px auto;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-group {
+      margin-bottom: 10px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .input-group input {
+      width: 95%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .button {
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #eee;
+    }
+    .button:hover {
+      background-color: #ddd;
+    }
+  </style>
+
+</head>
+<body>
+    <h1>Unit Converter</h1>
+  <div class="converter">
+
+    <div class="navbar">
+        <div class="dropdown">
+          <span>&#8942;</span>
+          <div class="dropdown-content">
+            <a href="scientific.html">Scientific Mode</a>
+            <a href="unit.html">Unit Converter</a>
+            <a href="currency.html">Currency Converter</a>
+          </div>
+        </div>
+      </div>
+
+    <div class="input-group">
+      <label for="fromUnit">From:</label>
+      <select id="fromUnit">
+        <option value="meter">Meter</option>
+        <option value="kilometer">Kilometer</option>
+        <option value="centimeter">Centimeter</option>
+        <option value="inch">Inch</option>
+        <!-- Add more options for other units -->
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="value">Value:</label>
+      <input type="number" id="value">
+    </div>
+    <div class="input-group">
+      <label for="toUnit">To:</label>
+      <select id="toUnit">
+        <option value="meter">Meter</option>
+        <option value="kilometer">Kilometer</option>
+        <option value="centimeter">Centimeter</option>
+        <option value="inch">Inch</option>
+        <!-- Add more options for other units -->
+      </select>
+    </div>
+    <button class="button" onclick="convert()">Convert</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Internal JavaScript code
+    function convert() {
+      const fromUnit = document.getElementById('fromUnit').value;
+      const toUnit = document.getElementById('toUnit').value;
+      const value = parseFloat(document.getElementById('value').value);
+      let result;
+
+      // Conversion logic
+      if (fromUnit === 'meter' && toUnit === 'kilometer') {
+        result = value / 1000;
+      } else if (fromUnit === 'kilometer' && toUnit === 'meter') {
+        result = value * 1000;
+      } else if (fromUnit === 'centimeter' && toUnit === 'inch') {
+        result = value / 2.54;
+      } else if (fromUnit === 'inch' && toUnit === 'centimeter') {
+        result = value * 2.54;
+      }
+      // Add more conversion options for other units
+
+      document.getElementById('result').innerText = `${value} ${fromUnit} is equal to ${result.toFixed(2)} ${toUnit}`;
+    }
+  </script>
+</body>
+</html>
